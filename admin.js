@@ -164,29 +164,53 @@ function renderOrders() {
 }
 
 async function sendShippingEmail(orderId) {
-  const { data: sessionData } = await supabase.auth.getSession();
+  const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+
+  if (sessionError) {
+    throw new Error('Could not read your admin session.');
+  }
+
   const token = sessionData?.session?.access_token;
 
   if (!token) {
     throw new Error('Your admin session expired. Please log in again.');
   }
 
-  const { data, error } = await supabase.functions.invoke('send-shipping-email', {
-    body: { order_id: orderId },
-    headers: {
-      Authorization: `Bearer ${token}`
+  const response = await fetch(
+    'https://kpyhtvymgfsrrhijyyjs.supabase.co/functions/v1/send-shipping-email',
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        order_id: orderId
+      })
     }
-  });
+  );
 
-  if (error) {
-    throw new Error(error.message || 'Could not send shipping email.');
+  let result = null;
+
+  try {
+    result = await response.json();
+  } catch {
+    result = {};
   }
 
-  if (data?.error) {
-    throw new Error(data.error);
+  if (!response.ok) {
+    throw new Error(
+      result?.error ||
+      result?.message ||
+      `Shipping email failed (${response.status})`
+    );
   }
 
-  return data;
+  if (result?.error) {
+    throw new Error(result.error);
+  }
+
+  return result;
 }
 
 async function updateFulfillment(orderId, value, previousValue) {
