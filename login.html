@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log In | MiriBloom</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page">
+  <div class="auth-shell">
+    <a class="brand auth-brand" href="index.html"><span>MiriBloom</span><small>Beauty that blooms with you.</small></a>
+    <div class="auth-page-card">
+      <p class="eyebrow">Welcome back</p>
+      <h1>Log in to MiriBloom ♡</h1>
+      <form id="pageLoginForm" class="auth-form">
+        <input id="pageLoginEmail" type="email" placeholder="Email" required>
+        <input id="pageLoginPassword" type="password" placeholder="Password" required>
+        <button class="primary-btn" type="submit">Log In</button>
+      </form>
+      <div id="pageLoginMessage" class="form-message"></div>
+      <p class="auth-switch">Need an account? <a href="index.html#quiz">Take the Beauty Quiz to create one.</a></p>
+    </div>
+  </div>
+  <script type="module">
+    import { supabase } from './supabase.js';
+    const form = document.getElementById('pageLoginForm');
+    const msg = document.getElementById('pageLoginMessage');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.style.display='block';
+      msg.textContent='Logging you in...';
+      const { error } = await supabase.auth.signInWithPassword({
+        email: document.getElementById('pageLoginEmail').value.trim(),
+        password: document.getElementById('pageLoginPassword').value
+      });
+      if(error){ msg.textContent=error.message; return; }
+      window.location.href='account.html';
+    });
+  </script>
+</body>
+</html>

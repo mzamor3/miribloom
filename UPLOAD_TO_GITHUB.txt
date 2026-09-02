@@ -1,0 +1,8 @@
+Upload/replace ALL files and the quiz-assets folder in the root of the GitHub miribloom repository.
+
+IMPORTANT:
+- Keep the folder name exactly: quiz-assets
+- It contains the visual skin-tone, eye-color, hair-color, lip-color and makeup swatches.
+- Replace quiz.js, app.js, auth.js, account.html, account.js, and style.css too.
+
+After GitHub deploys, hard refresh miribloom.com and retake the Beauty Quiz.
