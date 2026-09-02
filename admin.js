@@ -69,6 +69,18 @@ function getCustomerName(order) {
   return order.customer_name || order.customer_email || 'Customer';
 }
 
+function formatShipping(order) {
+  const lines = [
+    order.shipping_address_line1,
+    order.shipping_address_line2,
+    [order.shipping_city, order.shipping_state].filter(Boolean).join(', '),
+    order.shipping_postal_code,
+    order.shipping_country
+  ].filter(Boolean);
+
+  return lines.length ? lines.join(' • ') : '—';
+}
+
 function renderStats(orders) {
   document.getElementById('statTotal').textContent = orders.length;
   document.getElementById('statNew').textContent =
@@ -102,6 +114,7 @@ function renderOrders() {
         <strong>${escapeHtml(getCustomerName(order))}</strong>
         <small>${escapeHtml(order.customer_email || '')}</small>
       </td>
+      <td class="shipping-cell">${escapeHtml(formatShipping(order))}</td>
       <td>${escapeHtml(order.box_type || '—')}</td>
       <td>${fmtMoney(order.amount)}</td>
       <td><span class="status-pill paid">${escapeHtml(order.payment_status || '—')}</span></td>
@@ -229,28 +242,7 @@ async function loadOrders() {
     return;
   }
 
-  const enriched = [];
-
-  for (const order of orders || []) {
-    let customer_name = '';
-    let customer_email = '';
-
-    const { data: profileRow } = await supabase
-      .from('profiles')
-      .select('full_name')
-      .eq('id', order.user_id)
-      .maybeSingle();
-
-    if (profileRow?.full_name) customer_name = profileRow.full_name;
-
-    enriched.push({
-      ...order,
-      customer_name,
-      customer_email
-    });
-  }
-
-  allOrders = enriched;
+  allOrders = orders || [];
   renderStats(allOrders);
   renderOrders();
 }

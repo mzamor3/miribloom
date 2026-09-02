@@ -41,3 +41,11 @@ button{cursor:pointer}
 .profile-field span{display:block;font-size:10px;text-transform:uppercase;color:#748176;margin-bottom:5px}
 .profile-field strong{color:#2c4030}
 @media(max-width:800px){.admin-stats{grid-template-columns:1fr 1fr}.profile-modal-grid{grid-template-columns:1fr}}
+
+.shipping-cell{
+  min-width:260px;
+  max-width:340px;
+  line-height:1.45;
+  color:#536158;
+}
+.orders-table{min-width:1180px}
