@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order Confirmed | MiriBloom</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="account-page approved-account order-confirmed-page">
+
+  <header class="site-header approved-header">
+    <a class="brand" href="index.html">
+      <span>MiriBloom</span>
+      <small>Beauty that blooms with you.</small>
+    </a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#how">How It Works</a>
+      <a href="index.html#line">The Bloom Line</a>
+      <a href="index.html#quiz">Beauty Quiz</a>
+      <a href="index.html#waitlist">Bloom List</a>
+    </nav>
+
+    <div class="member-menu-wrap">
+      <button class="member-trigger approved-member-trigger" id="memberTrigger" type="button">
+        <span class="member-avatar">🌿</span>
+        <span>Hi, <span id="memberName">Member</span></span>
+        <span class="member-caret">⌄</span>
+      </button>
+
+      <div class="member-dropdown approved-member-dropdown" id="memberDropdown">
+        <a href="account.html">My Account</a>
+        <a href="orders.html">Orders</a>
+        <a href="account.html#profile">Beauty Profile</a>
+        <a href="index.html#waitlist">Bloom List</a>
+        <a href="account.html">Account Settings</a>
+        <button type="button" id="logoutBtn">Log Out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="order-confirmed-main">
+    <section class="order-confirmed-card">
+      <div class="confirmed-icon">♡</div>
+      <p class="eyebrow coral">Order confirmed</p>
+      <h1>Your Bloom is officially in progress.</h1>
+      <p class="confirmed-lead">
+        Thank you for your order. Your payment was received and your MiriBloom order
+        is now connected to your account.
+      </p>
+
+      <div class="confirmed-status">
+        <div class="confirmed-step active">
+          <span>✓</span>
+          <strong>Payment received</strong>
+        </div>
+        <div class="confirmed-line"></div>
+        <div class="confirmed-step">
+          <span>2</span>
+          <strong>Preparing</strong>
+        </div>
+        <div class="confirmed-line"></div>
+        <div class="confirmed-step">
+          <span>3</span>
+          <strong>Shipped</strong>
+        </div>
+      </div>
+
+      <div class="confirmed-note">
+        <strong>What happens next?</strong>
+        <p>
+          You can follow your order status anytime from My Bloom Orders.
+          We’ll update the status as your order moves through fulfillment.
+        </p>
+      </div>
+
+      <div class="confirmed-actions">
+        <a class="primary-btn" href="orders.html">View My Orders</a>
+        <a class="ghost-btn" href="account.html">My Account</a>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="order-confirmed.js?v=20260902-1"></script>
+</body>
+</html>
