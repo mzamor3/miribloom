@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MiriBloom Admin | Orders</title>
   <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="admin-tracking.css">
 </head>
 <body class="admin-page">
   <header class="admin-header">
@@ -59,6 +60,7 @@
               <th>Payment</th>
               <th>Order Date</th>
               <th>Fulfillment</th>
+              <th>Tracking</th>
               <th>Beauty Profile</th>
             </tr>
           </thead>
@@ -67,6 +69,41 @@
       </div>
     </section>
   </main>
+
+  
+  <div class="profile-modal hidden" id="trackingModal">
+    <div class="profile-modal-card tracking-modal-card">
+      <button class="profile-modal-close" id="trackingModalClose" type="button">×</button>
+      <p class="eyebrow">Shipping Details</p>
+      <h2>Tracking Information</h2>
+
+      <div class="tracking-form">
+        <label>
+          Carrier
+          <input id="trackingCarrier" type="text" placeholder="USPS, UPS, FedEx">
+        </label>
+
+        <label>
+          Tracking Number
+          <input id="trackingNumber" type="text" placeholder="Enter tracking number">
+        </label>
+
+        <label>
+          Tracking URL
+          <input id="trackingUrl" type="url" placeholder="https://...">
+        </label>
+
+        <input id="trackingOrderId" type="hidden">
+
+        <div class="tracking-actions">
+          <button class="primary-btn" id="saveTrackingBtn" type="button">Save Tracking</button>
+          <button class="ghost-btn" id="cancelTrackingBtn" type="button">Cancel</button>
+        </div>
+
+        <div class="form-message" id="trackingMessage"></div>
+      </div>
+    </div>
+  </div>
 
   <div class="profile-modal hidden" id="profileModal">
     <div class="profile-modal-card">
@@ -77,6 +114,6 @@
     </div>
   </div>
 
-  <script type="module" src="admin-shipping-v2.js?v=20260902-1"></script>
+  <script type="module" src="admin-tracking-v3.js?v=20260902-1"></script>
 </body>
 </html>

@@ -1,0 +1,39 @@
+
+.tracking-btn{
+  border:0;
+  background:#e9f1e5;
+  color:#315238;
+  padding:9px 12px;
+  border-radius:8px;
+  font-weight:800;
+}
+.tracking-summary{
+  display:block;
+  margin-top:5px;
+  max-width:170px;
+  color:#718077;
+  overflow-wrap:anywhere;
+}
+.tracking-form{
+  display:grid;
+  gap:14px;
+}
+.tracking-form label{
+  display:grid;
+  gap:6px;
+  color:#315238;
+  font-size:12px;
+  font-weight:800;
+}
+.tracking-form input{
+  width:100%;
+  padding:12px 13px;
+  border:1px solid #cfd8cb;
+  border-radius:10px;
+  background:#fff;
+}
+.tracking-actions{
+  display:flex;
+  gap:10px;
+  margin-top:4px;
+}
