@@ -796,3 +796,23 @@ a{text-decoration:none;color:inherit} button,input{font:inherit} button{cursor:p
   border:1px solid #ddd7cf;flex:0 0 54px;
 }
 @media(max-width:620px){.visual-extra-profile{grid-template-columns:1fr}}
+
+/* Strong selected state for visual quiz choices */
+.visual-option,
+.quiz-option{
+  cursor:pointer !important;
+  -webkit-tap-highlight-color: transparent;
+}
+.visual-option.selected{
+  border:3px solid #52794f !important;
+  box-shadow:0 0 0 4px rgba(82,121,79,.18) !important;
+  background:#f2f7ee !important;
+}
+.visual-option.selected .visual-label{
+  font-weight:900 !important;
+}
+.visual-option img,
+.visual-option .visual-label,
+.visual-option .visual-check{
+  pointer-events:none;
+}

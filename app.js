@@ -4,10 +4,39 @@ import { signUpAndSaveProfile,loginAndSaveProfile } from './auth.js';
 const modal=document.getElementById('quizModal'),closeBtn=document.getElementById('quizClose'),steps=document.getElementById('quizSteps'),progress=document.getElementById('quizProgress'),backBtn=document.getElementById('quizBack'),nextBtn=document.getElementById('quizNext'),nav=document.getElementById('quizNav'),result=document.getElementById('quizResult'),summary=document.getElementById('profileSummary');let current=0,answers={};
 function openQuiz(){modal.classList.add('open');modal.setAttribute('aria-hidden','false');current=0;result.classList.remove('show');nav.style.display='flex';showQuestion()}
 function closeQuiz(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true')}
-function showQuestion(){const q=quizQuestions[current];renderQuestion(steps,q,answers[q.key]);steps.querySelectorAll('.quiz-option, .visual-option').forEach(btn=>btn.addEventListener('click',()=>{steps.querySelectorAll('.quiz-option, .visual-option').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');answers[q.key]=btn.dataset.value}));backBtn.style.visibility=current===0?'hidden':'visible';nextBtn.textContent=current===quizQuestions.length-1?'See My Profile':'Next';progress.style.width=`${current/quizQuestions.length*100}%`}
+function showQuestion(){
+  const q=quizQuestions[current];
+  renderQuestion(steps,q,answers[q.key]);
+  backBtn.style.visibility=current===0?'hidden':'visible';
+  nextBtn.textContent=current===quizQuestions.length-1?'See My Profile':'Next';
+  progress.style.width=`${current/quizQuestions.length*100}%`;
+}
 function showProfile(){steps.innerHTML='';nav.style.display='none';progress.style.width='100%';const labels={skinTone:'Skin tone',undertone:'Undertone',
     eyeColor:'Eye color',
     hairColor:'Hair color',skinType:'Skin type',skinConcern:'Top concern',makeupStyle:'Makeup style',favoriteCategory:'Beauty preference',lipPreference:'Lip preference',hairType:'Hair type',fragrance:'Fragrance preference'};summary.innerHTML=Object.entries(answers).map(([k,v])=>`<div class="profile-item"><span>${labels[k]||k}</span><strong>${v}</strong></div>`).join('');localStorage.setItem('miribloom_beauty_profile',JSON.stringify(answers));result.classList.add('show')}
+
+// Robust delegated selection handler for both text and visual quiz choices.
+steps.addEventListener('click', (event) => {
+  const option = event.target.closest('.visual-option, .quiz-option');
+  if (!option || !steps.contains(option)) return;
+
+  event.preventDefault();
+
+  const question = quizQuestions[current];
+  if (!question) return;
+
+  steps.querySelectorAll('.visual-option, .quiz-option').forEach(el => {
+    el.classList.remove('selected');
+    el.setAttribute('aria-pressed', 'false');
+  });
+
+  option.classList.add('selected');
+  option.setAttribute('aria-pressed', 'true');
+  answers[question.key] = option.dataset.value;
+
+  console.log('MiriBloom quiz selected:', question.key, option.dataset.value);
+});
+
 document.querySelectorAll('[data-open-quiz]').forEach(b=>b.addEventListener('click',openQuiz));closeBtn.addEventListener('click',closeQuiz);modal.addEventListener('click',e=>{if(e.target===modal)closeQuiz()});backBtn.addEventListener('click',()=>{if(current>0){current--;showQuestion()}});nextBtn.addEventListener('click',()=>{const key=quizQuestions[current].key;if(!answers[key]){alert('Choose an option before continuing.');return}if(current<quizQuestions.length-1){current++;showQuestion()}else showProfile()});
 document.querySelectorAll('[data-auth-tab]').forEach(tab=>tab.addEventListener('click',()=>{document.querySelectorAll('[data-auth-tab]').forEach(t=>t.classList.remove('active'));tab.classList.add('active');const signup=tab.dataset.authTab==='signup';document.getElementById('signupForm').classList.toggle('hidden',!signup);document.getElementById('loginForm').classList.toggle('hidden',signup)}));
 function setAuthMessage(m){const el=document.getElementById('authMessage');el.style.display='block';el.textContent=m}

@@ -1,0 +1,9 @@
+Fastest update:
+1. Replace app.js in GitHub.
+2. Replace index.html in GitHub.
+3. Replace style.css in GitHub.
+4. Commit all three in the same commit.
+5. Wait for GitHub Pages deployment.
+6. Open miribloom.com in a private/incognito window.
+
+index.html now uses app.js?v=20260901-4 to bypass cached JavaScript.
