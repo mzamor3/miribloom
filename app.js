@@ -1,6 +1,6 @@
 import { supabase } from './supabase.js';
 import { quizQuestions,renderQuestion } from './quiz.js?v=20260901-profilefix';
-import { signUpAndSaveProfile,loginAndSaveProfile } from './auth.js';
+import { signUpAndSaveProfile,loginAndSaveProfile } from './auth.js?v=20260901-eyehairsave';
 const modal=document.getElementById('quizModal'),closeBtn=document.getElementById('quizClose'),steps=document.getElementById('quizSteps'),progress=document.getElementById('quizProgress'),backBtn=document.getElementById('quizBack'),nextBtn=document.getElementById('quizNext'),nav=document.getElementById('quizNav'),result=document.getElementById('quizResult'),summary=document.getElementById('profileSummary');let current=0,answers={};
 function openQuiz(){modal.classList.add('open');modal.setAttribute('aria-hidden','false');current=0;result.classList.remove('show');nav.style.display='flex';showQuestion()}
 function closeQuiz(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true')}
