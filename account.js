@@ -321,3 +321,23 @@ const closeSettingsBtn=document.getElementById('closeAccountSettings');
 openSettingsBtn?.addEventListener('click',()=>{settingsModal?.classList.remove('hidden');document.getElementById('memberDropdown')?.classList.remove('open');});
 closeSettingsBtn?.addEventListener('click',()=>settingsModal?.classList.add('hidden'));
 settingsModal?.addEventListener('click',(e)=>{if(e.target===settingsModal)settingsModal.classList.add('hidden');});
+
+
+const settingsModal = document.getElementById('accountSettingsModal');
+const openSettingsBtn = document.getElementById('openAccountSettings');
+const closeSettingsBtn = document.getElementById('closeAccountSettings');
+
+openSettingsBtn?.addEventListener('click', () => {
+  settingsModal?.classList.remove('hidden');
+  document.getElementById('memberDropdown')?.classList.remove('open');
+});
+
+closeSettingsBtn?.addEventListener('click', () => {
+  settingsModal?.classList.add('hidden');
+});
+
+settingsModal?.addEventListener('click', (event) => {
+  if (event.target === settingsModal) {
+    settingsModal.classList.add('hidden');
+  }
+});
