@@ -139,7 +139,20 @@ function renderOrders() {
 
   document.querySelectorAll('.fulfillment-select').forEach(select => {
     select.addEventListener('change', async () => {
-      await updateFulfillment(select.dataset.orderId, select.value);
+      const orderId = select.dataset.orderId;
+      const newValue = select.value;
+      const row = allOrders.find(o => o.id === orderId);
+      const previousValue = row?.fulfillment_status || 'new';
+
+      select.disabled = true;
+
+      const ok = await updateFulfillment(orderId, newValue, previousValue);
+
+      if (!ok) {
+        select.value = previousValue;
+      }
+
+      select.disabled = false;
     });
   });
 
@@ -150,7 +163,33 @@ function renderOrders() {
   });
 }
 
-async function updateFulfillment(orderId, value) {
+async function sendShippingEmail(orderId) {
+  const { data: sessionData } = await supabase.auth.getSession();
+  const token = sessionData?.session?.access_token;
+
+  if (!token) {
+    throw new Error('Your admin session expired. Please log in again.');
+  }
+
+  const { data, error } = await supabase.functions.invoke('send-shipping-email', {
+    body: { order_id: orderId },
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  if (error) {
+    throw new Error(error.message || 'Could not send shipping email.');
+  }
+
+  if (data?.error) {
+    throw new Error(data.error);
+  }
+
+  return data;
+}
+
+async function updateFulfillment(orderId, value, previousValue) {
   const { error } = await supabase
     .from('orders')
     .update({
@@ -161,13 +200,33 @@ async function updateFulfillment(orderId, value) {
 
   if (error) {
     alert('Could not update order: ' + error.message);
-    return;
+    return false;
   }
 
   const row = allOrders.find(o => o.id === orderId);
   if (row) row.fulfillment_status = value;
 
   renderStats(allOrders);
+
+  /*
+   * Send the shipping email only when the order
+   * CHANGES into "shipped". This prevents an email
+   * from being sent for unrelated status updates.
+   */
+  if (value === 'shipped' && previousValue !== 'shipped') {
+    try {
+      await sendShippingEmail(orderId);
+      alert('Order marked Shipped and shipping email sent ✓');
+    } catch (err) {
+      console.error(err);
+      alert(
+        'Order was marked Shipped, but the email could not be sent: ' +
+        (err.message || 'Unknown error')
+      );
+    }
+  }
+
+  return true;
 }
 
 async function openBeautyProfile(userId, customerName) {
