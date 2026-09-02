@@ -26,7 +26,7 @@ export const quizQuestions = [
     options:[['Dry','quiz-assets/skin-type-dry.jpg'],['Oily','quiz-assets/skin-type-oily.jpg'],['Combination','quiz-assets/skin-type-combination.jpg'],['Normal','quiz-assets/skin-type-normal.jpg'],['Sensitive','quiz-assets/skin-type-sensitive.jpg']]
   },
   {
-    key:'skinConcern', question:'What is your top skincare goal?', layout:'circle',
+    key:'skinConcern', question:'What is your main skincare concern?', layout:'circle',
     options:[['Hydration','quiz-assets/cat-skincare.jpg'],['Blemishes','quiz-assets/cat-skincare.jpg'],['Dark spots','quiz-assets/cat-skincare.jpg'],['Texture & pores','quiz-assets/cat-skincare.jpg'],['Fine lines','quiz-assets/cat-skincare.jpg'],['Calming','quiz-assets/cat-skincare.jpg']]
   },
   {

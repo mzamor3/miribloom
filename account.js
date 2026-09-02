@@ -3,8 +3,8 @@ import { supabase } from './supabase.js';
 const ids = {
   skin_tone: ['vSkinTone','eSkinTone'],
   undertone: ['vUndertone','eUndertone'],
-  eye_color: ['vEyeColor', null],
-  hair_color: ['vHairColor', null],
+  eye_color: ['vEyeColor','eEyeColor'],
+  hair_color: ['vHairColor','eHairColor'],
   skin_type: ['vSkinType','eSkinType'],
   skin_concern: ['vSkinConcern','eSkinConcern'],
   makeup_style: ['vMakeupStyle','eMakeupStyle'],
@@ -32,19 +32,30 @@ function setProfile(profile) {
     updated.textContent = `Last updated: ${d.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'})}`;
   }
 
-  
-  const slug=s=>String(s||'').toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-  const eyeImg=document.getElementById('savedEyeImage');
-  const hairImg=document.getElementById('savedHairImage');
-  if(eyeImg && profile?.eye_color) eyeImg.src=`quiz-assets/eye-${slug(profile.eye_color)}.jpg`;
-  if(hairImg && profile?.hair_color) hairImg.src=`quiz-assets/hair-${slug(profile.hair_color)}.jpg`;
-
   Object.entries(ids).forEach(([column,[displayId,editId]]) => {
     const value = profile?.[column] || '—';
-    document.getElementById(displayId).textContent = value;
-    const edit = document.getElementById(editId);
+    const display = document.getElementById(displayId);
+    if (display) display.textContent = value;
+
+    const edit = editId ? document.getElementById(editId) : null;
     if (edit && profile?.[column]) edit.value = profile[column];
   });
+
+  const slug = s => String(s || '')
+    .toLowerCase()
+    .replace(/&/g,'and')
+    .replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-|-$/g,'');
+
+  const eyeImg = document.getElementById('savedEyeImage');
+  const hairImg = document.getElementById('savedHairImage');
+
+  if (eyeImg && profile?.eye_color) {
+    eyeImg.src = `quiz-assets/eye-${slug(profile.eye_color)}.jpg`;
+  }
+  if (hairImg && profile?.hair_color) {
+    hairImg.src = `quiz-assets/hair-${slug(profile.hair_color)}.jpg`;
+  }
 }
 
 async function loadAccount() {
@@ -124,6 +135,8 @@ document.getElementById('saveProfileBtn').addEventListener('click', async () => 
     user_id: currentUser.id,
     skin_tone: document.getElementById('eSkinTone').value,
     undertone: document.getElementById('eUndertone').value,
+    eye_color: document.getElementById('eEyeColor').value,
+    hair_color: document.getElementById('eHairColor').value,
     skin_type: document.getElementById('eSkinType').value,
     skin_concern: document.getElementById('eSkinConcern').value,
     makeup_style: document.getElementById('eMakeupStyle').value,
@@ -156,3 +169,54 @@ document.getElementById('saveProfileBtn').addEventListener('click', async () => 
 loadAccount();
 
 
+
+
+const deleteBtn = document.getElementById('deleteAccountBtn');
+const deletePanel = document.getElementById('deleteConfirmPanel');
+const confirmDeleteBtn = document.getElementById('confirmDeleteAccountBtn');
+const cancelDeleteBtn = document.getElementById('cancelDeleteAccountBtn');
+const deleteMessage = document.getElementById('deleteAccountMessage');
+
+deleteBtn?.addEventListener('click', () => {
+  deletePanel?.classList.remove('hidden');
+  deleteBtn.classList.add('hidden');
+});
+
+cancelDeleteBtn?.addEventListener('click', () => {
+  deletePanel?.classList.add('hidden');
+  deleteBtn?.classList.remove('hidden');
+});
+
+confirmDeleteBtn?.addEventListener('click', async () => {
+  if (!currentUser) return;
+
+  if (deleteMessage) {
+    deleteMessage.style.display = 'block';
+    deleteMessage.textContent = 'Deleting your account...';
+  }
+
+  const { data: sessionData } = await supabase.auth.getSession();
+  const token = sessionData?.session?.access_token;
+
+  if (!token) {
+    if (deleteMessage) deleteMessage.textContent = 'Please log in again before deleting your account.';
+    return;
+  }
+
+  try {
+    const { data, error } = await supabase.functions.invoke('delete-account', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (error) throw error;
+
+    await supabase.auth.signOut();
+    window.location.href = 'index.html?account=deleted';
+  } catch (err) {
+    if (deleteMessage) {
+      deleteMessage.textContent = 'Could not delete account: ' + (err.message || 'Unknown error');
+    }
+  }
+});

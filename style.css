@@ -816,3 +816,62 @@ a{text-decoration:none;color:inherit} button,input{font:inherit} button{cursor:p
 .visual-option .visual-check{
   pointer-events:none;
 }
+
+/* Eye/hair saved swatches */
+.saved-color-thumb{
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  object-fit:cover;
+  border:1px solid #ddd7cf;
+  flex:0 0 54px;
+}
+
+/* Account deletion */
+.account-danger-zone{
+  max-width:1220px;
+  margin:24px auto 60px;
+  padding:24px 28px;
+  border:1px solid #efd0cc;
+  border-radius:16px;
+  background:#fff8f6;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:24px;
+  align-items:center;
+}
+.account-danger-zone h2{
+  margin:5px 0 7px;
+  font-family:Georgia,serif;
+  color:#7f342f;
+}
+.account-danger-zone p{
+  margin:0;
+  color:#785d59;
+  line-height:1.5;
+}
+.delete-account-btn{
+  border:1px solid #c86159;
+  background:#fff;
+  color:#a33d36;
+  border-radius:9px;
+  padding:12px 18px;
+  font-weight:800;
+}
+.delete-account-btn.confirm{
+  background:#b84b43;
+  color:#fff;
+}
+.delete-confirm-panel{
+  grid-column:1 / -1;
+  padding-top:18px;
+  border-top:1px solid #efd9d5;
+}
+.delete-actions{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+}
+@media(max-width:700px){
+  .account-danger-zone{grid-template-columns:1fr}
+}

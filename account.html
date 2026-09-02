@@ -243,6 +243,14 @@
         <div class="approved-profile-grid" id="profileDisplay">
           <div class="approved-profile-item"><div class="approved-icon">◉</div><div><span>Skin Tone</span><strong id="vSkinTone">—</strong></div></div>
           <div class="approved-profile-item"><div class="approved-icon">✦</div><div><span>Undertone</span><strong id="vUndertone">—</strong></div></div>
+          <div class="approved-profile-item">
+            <img class="saved-color-thumb" id="savedEyeImage" src="quiz-assets/eye-brown.jpg" alt="Eye color">
+            <div><span>Eye Color</span><strong id="vEyeColor">—</strong></div>
+          </div>
+          <div class="approved-profile-item">
+            <img class="saved-color-thumb" id="savedHairImage" src="quiz-assets/hair-dark-brown.jpg" alt="Hair color">
+            <div><span>Hair Color</span><strong id="vHairColor">—</strong></div>
+          </div>
           <div class="approved-profile-item"><div class="approved-icon">◌</div><div><span>Skin Type</span><strong id="vSkinType">—</strong></div></div>
           <div class="approved-profile-item"><div class="approved-icon">◎</div><div><span>Skin Concern</span><strong id="vSkinConcern">—</strong></div></div>
           <div class="approved-profile-item"><div class="approved-icon">✣</div><div><span>Makeup Style</span><strong id="vMakeupStyle">—</strong></div></div>
@@ -252,20 +260,10 @@
           <div class="approved-profile-item"><div class="approved-icon">◍</div><div><span>Fragrance</span><strong id="vFragrance">—</strong></div></div>
         </div>
 
-        <div class="visual-extra-profile" id="visualExtraProfile">
-          <div class="approved-profile-item">
-            <img class="saved-color-thumb" id="savedEyeImage" src="quiz-assets/eye-brown.jpg" alt="Eye color">
-            <div><span>Eye Color</span><strong id="vEyeColor">—</strong></div>
-          </div>
-          <div class="approved-profile-item">
-            <img class="saved-color-thumb" id="savedHairImage" src="quiz-assets/hair-dark-brown.jpg" alt="Hair color">
-            <div><span>Hair Color</span><strong id="vHairColor">—</strong></div>
-          </div>
+        
+          
         </div>
-          <div class="approved-profile-item">
-            <img class="saved-color-thumb" id="savedHairImage" src="quiz-assets/hair-dark-brown.jpg" alt="">
-            <div><span>Hair Color</span><strong id="savedHairColor">—</strong></div>
-          </div>
+          
         </div>
 
         <div class="approved-personalize-strip">
@@ -285,6 +283,16 @@
             <label>Undertone
               <select id="eUndertone">
                 <option>Cool</option><option>Warm</option><option>Neutral</option><option>Olive</option><option>Not sure</option>
+              </select>
+            </label>
+            <label>Eye Color
+              <select id="eEyeColor">
+                <option>Brown</option><option>Hazel</option><option>Blue</option><option>Green</option><option>Amber</option><option>Gray</option>
+              </select>
+            </label>
+            <label>Hair Color
+              <select id="eHairColor">
+                <option>Black</option><option>Dark Brown</option><option>Light Brown</option><option>Blonde</option><option>Red</option><option>Gray</option><option>White</option>
               </select>
             </label>
             <label>Skin Type
@@ -363,7 +371,25 @@
       <span>Join the Bloom List for early access, exclusive perks, and surprise gifts.</span>
       <a href="index.html#waitlist">I’m in! ✨</a>
     </section>
-  </main>
+  
+    <section class="account-danger-zone">
+      <div>
+        <p class="eyebrow">Account settings</p>
+        <h2>Delete Account</h2>
+        <p>This permanently deletes your MiriBloom account and saved Beauty Profile. This cannot be undone.</p>
+      </div>
+      <button class="delete-account-btn" id="deleteAccountBtn" type="button">Delete My Account</button>
+      <div class="delete-confirm-panel hidden" id="deleteConfirmPanel">
+        <p><strong>Are you sure?</strong> Your account and Beauty Profile will be permanently deleted.</p>
+        <div class="delete-actions">
+          <button class="delete-account-btn confirm" id="confirmDeleteAccountBtn" type="button">Yes, Delete My Account</button>
+          <button class="ghost-btn" id="cancelDeleteAccountBtn" type="button">Cancel</button>
+        </div>
+        <div class="form-message" id="deleteAccountMessage"></div>
+      </div>
+    </section>
+
+</main>
 
   <script type="module" src="account.js"></script>
 </body>
