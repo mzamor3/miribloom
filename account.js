@@ -120,10 +120,7 @@ async function loadAccount() {
 
   currentUser = userData.user;
 
-  let name =
-    currentUser.user_metadata?.full_name ||
-    currentUser.user_metadata?.name ||
-    '';
+  let name = '';
 
   const { data: profileRow } = await supabase
     .from('profiles')
@@ -131,11 +128,21 @@ async function loadAccount() {
     .eq('id', currentUser.id)
     .maybeSingle();
 
-  if (profileRow?.full_name) name = profileRow.full_name;
-  if (!name) name = (currentUser.email || 'Member').split('@')[0];
+  if (profileRow?.full_name?.trim()) {
+    name = profileRow.full_name.trim();
+  } else if (currentUser.user_metadata?.full_name?.trim()) {
+    name = currentUser.user_metadata.full_name.trim();
+  } else if (currentUser.user_metadata?.name?.trim()) {
+    name = currentUser.user_metadata.name.trim();
+  } else if (currentUser.user_metadata?.first_name?.trim()) {
+    name = currentUser.user_metadata.first_name.trim();
+  } else {
+    name = 'Member';
+  }
 
   const memberName = document.getElementById('memberName');
   const heroName = document.getElementById('heroName');
+
   if (memberName) memberName.textContent = name;
   if (heroName) heroName.textContent = name;
 
