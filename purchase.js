@@ -46,10 +46,8 @@ async function checkAccess() {
   const user = sessionData?.session?.user;
 
   if (!user) {
-    setLocked(
-      'Log in to check your launch access',
-      'Your Bloom purchase is connected to your MiriBloom account and Beauty Profile.'
-    );
+    setLocked('Log in to check your launch access',
+      'Your Bloom purchase is connected to your MiriBloom account and Beauty Profile.');
     return;
   }
 
@@ -61,20 +59,16 @@ async function checkAccess() {
 
   if (error) {
     console.error(error);
-    setLocked(
-      'Launch access is still locked',
-      'MiriBloom could not verify purchase access yet. Please try again later.'
-    );
+    setLocked('Launch access is still locked',
+      'MiriBloom could not verify purchase access yet. Please try again later.');
     return;
   }
 
   if (data?.is_allowed === true) {
     setUnlocked(user.id);
   } else {
-    setLocked(
-      'You’re on the list ♡',
-      'Your account does not have purchase access yet. MiriBloom will notify you when a founding spot opens.'
-    );
+    setLocked('You’re on the list ♡',
+      'Your account does not have purchase access yet. MiriBloom will notify you when a founding spot opens.');
   }
 }
 
