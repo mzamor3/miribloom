@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MiriBloom Admin | Orders</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-page">
+  <header class="admin-header">
+    <a class="admin-brand" href="index.html">
+      <span>MiriBloom</span>
+      <small>Admin Dashboard</small>
+    </a>
+    <div class="admin-header-actions">
+      <a href="index.html">View Website</a>
+      <button id="adminLogoutBtn" type="button">Log Out</button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <section class="admin-hero">
+      <p class="eyebrow">Private Admin</p>
+      <h1>Orders Dashboard</h1>
+      <p>Review paid orders, customer Beauty Profiles, and fulfillment status.</p>
+    </section>
+
+    <section class="admin-stats">
+      <div class="stat-card"><span>Total Orders</span><strong id="statTotal">0</strong></div>
+      <div class="stat-card"><span>New</span><strong id="statNew">0</strong></div>
+      <div class="stat-card"><span>Preparing</span><strong id="statPreparing">0</strong></div>
+      <div class="stat-card"><span>Shipped</span><strong id="statShipped">0</strong></div>
+    </section>
+
+    <section class="admin-toolbar">
+      <div>
+        <label for="statusFilter">Filter</label>
+        <select id="statusFilter">
+          <option value="all">All orders</option>
+          <option value="new">New</option>
+          <option value="preparing">Preparing</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+        </select>
+      </div>
+      <button id="refreshOrdersBtn" type="button">Refresh</button>
+    </section>
+
+    <section class="orders-wrap">
+      <div id="adminMessage" class="admin-message">Loading orders...</div>
+      <div class="orders-table-wrap">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Box</th>
+              <th>Amount</th>
+              <th>Payment</th>
+              <th>Order Date</th>
+              <th>Fulfillment</th>
+              <th>Beauty Profile</th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div class="profile-modal hidden" id="profileModal">
+    <div class="profile-modal-card">
+      <button class="profile-modal-close" id="profileModalClose" type="button">×</button>
+      <p class="eyebrow">Customer Beauty Profile</p>
+      <h2 id="profileModalName">Customer</h2>
+      <div id="profileModalGrid" class="profile-modal-grid"></div>
+    </div>
+  </div>
+
+  <script type="module" src="admin.js?v=20260902-1"></script>
+</body>
+</html>
