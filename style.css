@@ -995,3 +995,21 @@ a{text-decoration:none;color:inherit} button,input{font:inherit} button{cursor:p
   line-height:1.55;
 }
 .hidden{display:none!important}
+
+/* Clean account fix */
+.profile-choice-image{
+  width:58px!important;
+  height:58px!important;
+  min-width:58px!important;
+  max-width:58px!important;
+  flex:0 0 58px!important;
+  object-fit:cover!important;
+  border-radius:50%!important;
+}
+.profile-edit-panel.hidden,
+.settings-backdrop.hidden{display:none!important}
+.member-dropdown #openAccountSettings{
+  display:block;width:100%;padding:11px 12px;border:0;background:transparent;
+  text-align:left;border-radius:8px;color:#315238;cursor:pointer
+}
+.member-dropdown #openAccountSettings:hover{background:#edf3e8}
