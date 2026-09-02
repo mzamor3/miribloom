@@ -3,6 +3,8 @@ import { supabase } from './supabase.js';
 const ids = {
   skin_tone: ['vSkinTone','eSkinTone'],
   undertone: ['vUndertone','eUndertone'],
+  eye_color: ['vEyeColor', null],
+  hair_color: ['vHairColor', null],
   skin_type: ['vSkinType','eSkinType'],
   skin_concern: ['vSkinConcern','eSkinConcern'],
   makeup_style: ['vMakeupStyle','eMakeupStyle'],
@@ -29,6 +31,13 @@ function setProfile(profile) {
     const d = new Date(profile.updated_at);
     updated.textContent = `Last updated: ${d.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'})}`;
   }
+
+  
+  const slug=s=>String(s||'').toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  const eyeImg=document.getElementById('savedEyeImage');
+  const hairImg=document.getElementById('savedHairImage');
+  if(eyeImg && profile?.eye_color) eyeImg.src=`quiz-assets/eye-${slug(profile.eye_color)}.jpg`;
+  if(hairImg && profile?.hair_color) hairImg.src=`quiz-assets/hair-${slug(profile.hair_color)}.jpg`;
 
   Object.entries(ids).forEach(([column,[displayId,editId]]) => {
     const value = profile?.[column] || '—';
@@ -147,19 +156,3 @@ document.getElementById('saveProfileBtn').addEventListener('click', async () => 
 loadAccount();
 
 
-function loadVisualExtras(){
-  try{
-    const x=JSON.parse(localStorage.getItem('miribloom_visual_profile')||'{}');
-    const eye=document.getElementById('savedEyeColor');
-    const hair=document.getElementById('savedHairColor');
-    if(eye) eye.textContent=x.eyeColor||'—';
-    if(hair) hair.textContent=x.hairColor||'—';
-
-    const slug=s=>String(s||'').toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-    const eyeImg=document.getElementById('savedEyeImage');
-    const hairImg=document.getElementById('savedHairImage');
-    if(eyeImg&&x.eyeColor) eyeImg.src=`quiz-assets/eye-${slug(x.eyeColor)}.jpg`;
-    if(hairImg&&x.hairColor) hairImg.src=`quiz-assets/hair-${slug(x.hairColor)}.jpg`;
-  }catch(e){}
-}
-loadVisualExtras();
