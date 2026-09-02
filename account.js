@@ -77,6 +77,7 @@ const imageIds = {
 
 let currentUser = null;
 let currentProfile = null;
+let currentDisplayName = 'Member';
 
 function showMessage(text) {
   const el = document.getElementById('profileMessage');
@@ -140,11 +141,15 @@ async function loadAccount() {
     name = 'Member';
   }
 
+  currentDisplayName = name;
+
   const memberName = document.getElementById('memberName');
   const heroName = document.getElementById('heroName');
+  const fullNameInput = document.getElementById('accountFullName');
 
   if (memberName) memberName.textContent = name;
   if (heroName) heroName.textContent = name;
+  if (fullNameInput) fullNameInput.value = name === 'Member' ? '' : name;
 
   const { data: beauty, error: beautyError } = await supabase
     .from('beauty_profiles')
@@ -228,6 +233,66 @@ document.getElementById('saveProfileBtn')?.addEventListener('click', async () =>
   document.getElementById('profileEditPanel')?.classList.add('hidden');
   document.getElementById('profileDisplay')?.classList.remove('hidden');
   showMessage('Your Beauty Profile has been updated ♡');
+});
+
+
+/* Save account name */
+const saveAccountNameBtn = document.getElementById('saveAccountNameBtn');
+const accountFullNameInput = document.getElementById('accountFullName');
+const accountNameMessage = document.getElementById('accountNameMessage');
+
+saveAccountNameBtn?.addEventListener('click', async () => {
+  if (!currentUser) return;
+
+  const fullName = accountFullNameInput?.value?.trim();
+
+  if (!fullName) {
+    if (accountNameMessage) {
+      accountNameMessage.style.display = 'block';
+      accountNameMessage.textContent = 'Please enter your name.';
+    }
+    return;
+  }
+
+  if (accountNameMessage) {
+    accountNameMessage.style.display = 'block';
+    accountNameMessage.textContent = 'Saving your name...';
+  }
+
+  const { error: profileError } = await supabase
+    .from('profiles')
+    .upsert({
+      id: currentUser.id,
+      full_name: fullName,
+      updated_at: new Date().toISOString()
+    }, { onConflict: 'id' });
+
+  if (profileError) {
+    if (accountNameMessage) {
+      accountNameMessage.textContent = 'Could not save your name: ' + profileError.message;
+    }
+    return;
+  }
+
+  const { error: metadataError } = await supabase.auth.updateUser({
+    data: { full_name: fullName }
+  });
+
+  if (metadataError) {
+    console.warn('Name saved to profiles, but auth metadata update failed:', metadataError.message);
+  }
+
+  currentDisplayName = fullName;
+
+  const memberName = document.getElementById('memberName');
+  const heroName = document.getElementById('heroName');
+
+  if (memberName) memberName.textContent = fullName;
+  if (heroName) heroName.textContent = fullName;
+
+  if (accountNameMessage) {
+    accountNameMessage.textContent = 'Your name has been updated ♡';
+  }
 });
 
 /* Account Settings */

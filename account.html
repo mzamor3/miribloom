@@ -178,6 +178,15 @@
       <p class="eyebrow">Account settings</p>
       <h2>Manage your MiriBloom account</h2>
 
+      <div class="settings-section name-settings-section">
+        <h3>Your Name</h3>
+        <p>This is the name shown in your MiriBloom account.</p>
+        <label class="settings-name-label" for="accountFullName">Full name</label>
+        <input id="accountFullName" class="settings-name-input" type="text" placeholder="Enter your full name" autocomplete="name">
+        <button class="primary-btn settings-save-name" id="saveAccountNameBtn" type="button">Save Name</button>
+        <div class="form-message" id="accountNameMessage"></div>
+      </div>
+
       <div class="settings-section">
         <h3>Delete Account</h3>
         <p>Permanently delete your account and saved Beauty Profile. This cannot be undone.</p>
@@ -195,6 +204,6 @@
     </div>
   </div>
 
-  <script type="module" src="account.js?v=20260901-finalname"></script>
+  <script type="module" src="account.js?v=20260901-name-center-2"></script>
 </body>
 </html>
