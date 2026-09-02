@@ -360,4 +360,106 @@ confirmDeleteBtn?.addEventListener('click', async () => {
   }
 });
 
-loadAccount();
+
+/* Customer Order History */
+function orderStatusLabel(status) {
+  const labels = {
+    new: 'Order received',
+    preparing: 'Preparing your Bloom',
+    shipped: 'Shipped',
+    delivered: 'Delivered'
+  };
+  return labels[status] || 'Order received';
+}
+
+function orderProgress(status) {
+  const steps = ['new', 'preparing', 'shipped', 'delivered'];
+  const index = Math.max(0, steps.indexOf(status));
+  return ((index + 1) / steps.length) * 100;
+}
+
+function formatOrderDate(value) {
+  if (!value) return '';
+  return new Date(value).toLocaleDateString(undefined, {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+  });
+}
+
+async function loadMyOrders() {
+  const list = document.getElementById('myOrdersList');
+  const message = document.getElementById('myOrdersMessage');
+  if (!list || !currentUser) return;
+
+  if (message) {
+    message.style.display = 'block';
+    message.textContent = 'Loading your orders...';
+  }
+
+  const { data, error } = await supabase
+    .from('orders')
+    .select('id, box_type, amount, payment_status, fulfillment_status, created_at')
+    .eq('user_id', currentUser.id)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    if (message) message.textContent = 'Could not load your orders: ' + error.message;
+    return;
+  }
+
+  if (!data?.length) {
+    if (message) message.style.display = 'none';
+    list.innerHTML = `
+      <div class="empty-orders-card">
+        <div class="empty-orders-heart">♡</div>
+        <h3>No Bloom orders yet</h3>
+        <p>When you purchase a Bloom Mini or Bloom Box, your order will appear here.</p>
+        <a class="primary-btn order-shop-btn" href="purchase.html">Choose Your Bloom</a>
+      </div>`;
+    return;
+  }
+
+  if (message) message.style.display = 'none';
+
+  list.innerHTML = data.map(order => {
+    const status = order.fulfillment_status || 'new';
+    const progress = orderProgress(status);
+    const steps = ['new','preparing','shipped','delivered'];
+    const current = Math.max(0, steps.indexOf(status));
+
+    return `
+      <article class="customer-order-card">
+        <div class="customer-order-top">
+          <div>
+            <span class="order-date">${formatOrderDate(order.created_at)}</span>
+            <h3>${order.box_type || 'MiriBloom Order'}</h3>
+          </div>
+          <div class="order-amount">$${Number(order.amount || 0).toFixed(2)}</div>
+        </div>
+
+        <div class="customer-order-status">
+          <div class="order-status-row">
+            <strong>${orderStatusLabel(status)}</strong>
+            <span>${order.payment_status === 'paid' ? 'Paid ✓' : (order.payment_status || '')}</span>
+          </div>
+
+          <div class="order-progress-track">
+            <span style="width:${progress}%"></span>
+          </div>
+
+          <div class="order-progress-labels">
+            <span class="${current >= 0 ? 'active' : ''}">Received</span>
+            <span class="${current >= 1 ? 'active' : ''}">Preparing</span>
+            <span class="${current >= 2 ? 'active' : ''}">Shipped</span>
+            <span class="${current >= 3 ? 'active' : ''}">Delivered</span>
+          </div>
+        </div>
+      </article>`;
+  }).join('');
+}
+
+document.getElementById('refreshMyOrders')?.addEventListener('click', loadMyOrders);
+
+
+loadAccount().then(loadMyOrders);
