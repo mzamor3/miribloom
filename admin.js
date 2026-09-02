@@ -173,7 +173,7 @@ async function sendShippingEmail(orderId) {
   const token = sessionData?.session?.access_token;
 
   if (!token) {
-    throw new Error('Your admin session expired. Please log in again.');
+    throw new Error('Your admin session expired. Please log out and log in again.');
   }
 
   const response = await fetch(
@@ -182,20 +182,20 @@ async function sendShippingEmail(orderId) {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
+        'x-admin-token': token,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        order_id: orderId
-      })
+      body: JSON.stringify({ order_id: orderId })
     }
   );
 
-  let result = null;
+  const text = await response.text();
+  let result = {};
 
   try {
-    result = await response.json();
+    result = text ? JSON.parse(text) : {};
   } catch {
-    result = {};
+    result = { message: text };
   }
 
   if (!response.ok) {
@@ -232,11 +232,6 @@ async function updateFulfillment(orderId, value, previousValue) {
 
   renderStats(allOrders);
 
-  /*
-   * Send the shipping email only when the order
-   * CHANGES into "shipped". This prevents an email
-   * from being sent for unrelated status updates.
-   */
   if (value === 'shipped' && previousValue !== 'shipped') {
     try {
       await sendShippingEmail(orderId);
