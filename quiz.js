@@ -11,7 +11,7 @@ export const quizQuestions = [
   },
   {
     key:'undertone', question:'What is your undertone?', layout:'circle',
-    options:[['Cool','quiz-assets/eye-gray.jpg'],['Warm','quiz-assets/eye-amber.jpg'],['Neutral','quiz-assets/eye-hazel.jpg'],['Olive','quiz-assets/eye-green.jpg'],['Not sure','quiz-assets/cat-both.jpg']]
+    options:[['Cool','quiz-assets/undertone-cool.jpg'],['Warm','quiz-assets/undertone-warm.jpg'],['Neutral','quiz-assets/undertone-neutral.jpg'],['Olive','quiz-assets/undertone-olive.jpg'],['Not sure','quiz-assets/undertone-not-sure.jpg']]
   },
   {
     key:'eyeColor', question:'What color are your eyes?', layout:'circle',
@@ -23,7 +23,7 @@ export const quizQuestions = [
   },
   {
     key:'skinType', question:'How would you describe your skin?', layout:'circle',
-    options:[['Dry','quiz-assets/cat-skincare.jpg'],['Oily','quiz-assets/cat-skincare.jpg'],['Combination','quiz-assets/cat-both.jpg'],['Normal','quiz-assets/cat-skincare.jpg'],['Sensitive','quiz-assets/cat-skincare.jpg']]
+    options:[['Dry','quiz-assets/skin-type-dry.jpg'],['Oily','quiz-assets/skin-type-oily.jpg'],['Combination','quiz-assets/skin-type-combination.jpg'],['Normal','quiz-assets/skin-type-normal.jpg'],['Sensitive','quiz-assets/skin-type-sensitive.jpg']]
   },
   {
     key:'skinConcern', question:'What is your top skincare goal?', layout:'circle',
