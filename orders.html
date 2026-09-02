@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Bloom Orders | MiriBloom</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="account-page approved-account orders-page">
+
+  <header class="site-header approved-header">
+    <a class="brand" href="index.html">
+      <span>MiriBloom</span>
+      <small>Beauty that blooms with you.</small>
+    </a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#how">How It Works</a>
+      <a href="index.html#line">The Bloom Line</a>
+      <a href="index.html#quiz">Beauty Quiz</a>
+      <a href="index.html#waitlist">Bloom List</a>
+    </nav>
+
+    <div class="member-menu-wrap">
+      <button class="member-trigger approved-member-trigger" id="memberTrigger" type="button">
+        <span class="member-avatar">🌿</span>
+        <span>Hi, <span id="memberName">Member</span></span>
+        <span class="member-caret">⌄</span>
+      </button>
+
+      <div class="member-dropdown approved-member-dropdown" id="memberDropdown">
+        <a href="account.html">My Account</a>
+        <a class="active-menu-item" href="orders.html">Orders</a>
+        <a href="account.html#profile">Beauty Profile</a>
+        <a href="index.html#waitlist">Bloom List</a>
+        <a href="account.html">Account Settings</a>
+        <button type="button" id="logoutBtn">Log Out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="orders-page-main">
+    <section class="orders-page-hero">
+      <p class="eyebrow coral">Your MiriBloom account</p>
+      <h1>My Bloom Orders</h1>
+      <p>Track your purchases from payment through delivery.</p>
+    </section>
+
+    <section class="orders-page-card">
+      <div class="orders-page-heading">
+        <div>
+          <h2>Order History</h2>
+          <p>Only orders connected to your MiriBloom account appear here.</p>
+        </div>
+        <button class="ghost-btn" id="refreshMyOrders" type="button">↻ Refresh Orders</button>
+      </div>
+
+      <div class="form-message" id="myOrdersMessage"></div>
+      <div class="customer-orders-list" id="myOrdersList"></div>
+    </section>
+  </main>
+
+  <script type="module" src="orders.js?v=20260902-1"></script>
+</body>
+</html>
