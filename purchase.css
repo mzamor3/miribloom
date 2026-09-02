@@ -1,0 +1,50 @@
+
+:root{
+  --forest:#2f6138;
+  --deep:#1f5b2b;
+  --sage:#6f9268;
+  --cream:#fffaf5;
+  --blush:#fff2ed;
+  --pink:#ef777d;
+  --text:#202821;
+  --muted:#687168;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#fffdf9;color:var(--text);font-family:Inter,Arial,sans-serif}
+a{text-decoration:none;color:inherit}
+.topbar{background:linear-gradient(90deg,#1d622d,#2c783a,#1d622d);color:#fff;text-align:center;padding:12px 18px;font-size:15px}
+.site-header{height:100px;display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:34px;padding:0 clamp(26px,5vw,70px);background:#fffdf9;border-bottom:1px solid #ece9e3}
+.brand{display:flex;flex-direction:column;color:var(--forest);font-family:Georgia,serif;font-size:36px;font-weight:700;line-height:1}
+.brand small{font:500 11px/1.4 Inter,Arial,sans-serif;letter-spacing:.03em;color:#6e7b70;margin-top:8px}
+.nav-links{display:flex;gap:34px;font-size:13px;font-weight:700}
+.header-account-link{border:1px solid #7c9b76;border-radius:999px;padding:11px 16px;color:#315238;font-weight:800;font-size:12px;background:#fffdf8}
+.purchase-page{min-height:100vh;background:radial-gradient(circle at 12% 12%,rgba(244,229,220,.6),transparent 24%),radial-gradient(circle at 88% 16%,rgba(222,235,215,.68),transparent 28%),#fffdf8}
+.purchase-main{max-width:1120px;margin:0 auto;padding:60px 24px 90px}
+.purchase-hero{max-width:760px;margin:0 auto 30px;text-align:center}
+.eyebrow{text-transform:uppercase;letter-spacing:.18em;color:#6d8b69;font-size:12px;font-weight:900}
+.purchase-hero h1{margin:6px 0 14px;font-family:Georgia,serif;font-size:clamp(48px,6vw,72px);color:#294b34}
+.purchase-hero p:last-child{max-width:650px;margin:0 auto;color:#66736a;line-height:1.65;font-size:17px}
+.access-message{max-width:850px;margin:0 auto 32px;padding:18px 22px;border-radius:16px;display:flex;gap:15px;align-items:center}
+.access-message.locked{background:#fff4ef;border:1px solid #efcfc5}
+.access-message.unlocked{background:#edf5e9;border:1px solid #bfd2b9}
+.access-icon{width:42px;height:42px;flex:0 0 42px;display:grid;place-items:center;border-radius:50%;background:#fff;color:#5f7f59;font-size:21px}
+.access-message strong{display:block;color:#315238;margin-bottom:4px}
+.access-message p{margin:0;color:#6d746d;font-size:13px}
+.purchase-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.purchase-card{position:relative;padding:30px;background:#fff;border:1px solid #dde4d9;border-radius:26px;box-shadow:0 18px 48px rgba(41,75,52,.08);text-align:center}
+.purchase-card.featured{border:2px solid #8fa887;background:linear-gradient(160deg,#f1f6ed,#fffaf7)}
+.founding-badge{position:absolute;top:18px;right:18px;padding:7px 10px;border-radius:999px;background:#f7ddd6;color:#9a544f;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+.purchase-art{margin:20px auto 24px;display:grid;place-items:center;color:#315238;font-family:Georgia,serif;box-shadow:0 14px 30px rgba(41,75,52,.12)}
+.mini-art{width:120px;height:95px;border-radius:15px 15px 28px 28px;background:linear-gradient(#fff,#dfe8da);border:1px solid #cbd7c7}
+.full-art{width:82px;height:160px;border-radius:28px 28px 20px 20px;background:linear-gradient(#fff,#dfe8da);border:1px solid #cbd7c7}
+.purchase-card h2{margin:6px 0;font-family:Georgia,serif;color:#294b34;font-size:34px}
+.purchase-price{font-family:Georgia,serif;color:#587a53;font-size:54px;font-weight:700}
+.purchase-desc{max-width:380px;margin:10px auto 20px;color:#68736a;line-height:1.55}
+.purchase-features{padding:0;margin:0 0 24px;list-style:none;display:grid;gap:8px;color:#445349;font-size:13px}
+.purchase-features li:before{content:"✓";margin-right:7px;color:#6f9268;font-weight:900}
+.purchase-btn{display:block;width:100%;padding:14px 20px;border-radius:10px;background:linear-gradient(#47804b,#2f6938);color:#fff;font-weight:900}
+.purchase-btn.disabled{background:#d9ded7;color:#7b847c;cursor:not-allowed;pointer-events:auto}
+.purchase-note{max-width:780px;margin:30px auto 0;padding:22px;text-align:center;border-radius:16px;background:#f7f6ef;border:1px solid #e8e4dc}
+.purchase-note strong{color:#315238}.purchase-note p{margin:7px 0 0;color:#6d756e;font-size:13px}
+@media(max-width:900px){.nav-links{display:none}.site-header{grid-template-columns:1fr auto}}
+@media(max-width:760px){.purchase-grid{grid-template-columns:1fr}.purchase-main{padding:42px 18px 70px}}
