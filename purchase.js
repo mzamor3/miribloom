@@ -24,13 +24,17 @@ function setLocked(title, text) {
   });
 }
 
-function setUnlocked() {
+function setUnlocked(userId) {
   accessMessage.classList.remove('locked');
   accessMessage.classList.add('unlocked');
   accessTitle.textContent = 'Your Founding Launch access is open ♡';
   accessText.textContent = 'Choose your Bloom and continue securely to Stripe checkout.';
 
   [miniBtn, boxBtn].forEach(btn => {
+    const stripeUrl = new URL(btn.href);
+    stripeUrl.searchParams.set('client_reference_id', userId);
+    btn.href = stripeUrl.toString();
+
     btn.classList.remove('disabled');
     btn.setAttribute('aria-disabled','false');
     btn.removeEventListener('click', blockLockedClick);
@@ -65,7 +69,7 @@ async function checkAccess() {
   }
 
   if (data?.is_allowed === true) {
-    setUnlocked();
+    setUnlocked(user.id);
   } else {
     setLocked(
       'You’re on the list ♡',
