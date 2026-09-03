@@ -1,0 +1,19 @@
+
+/* Subscription price label */
+.monthly-label{
+  margin-left:5px;
+  font-family:Inter,Arial,sans-serif;
+  font-size:14px;
+  font-weight:700;
+  color:#718077;
+}
+
+button.purchase-btn{
+  width:100%;
+  border:none;
+  cursor:pointer;
+}
+
+button.purchase-btn:disabled{
+  cursor:not-allowed;
+}

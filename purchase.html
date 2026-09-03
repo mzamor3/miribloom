@@ -14,12 +14,14 @@
       <span>MiriBloom</span>
       <small>Beauty that blooms with you.</small>
     </a>
+
     <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="index.html#how">How It Works</a>
       <a href="index.html#quiz">Beauty Quiz</a>
       <a href="index.html#waitlist">Bloom List</a>
     </nav>
+
     <a class="header-account-link" href="account.html">My Account</a>
   </header>
 
@@ -27,7 +29,10 @@
     <section class="purchase-hero">
       <p class="eyebrow">Founding launch access</p>
       <h1>Choose Your Bloom ♡</h1>
-      <p>Select the beauty box that fits you best. Your saved Beauty Profile stays connected to your MiriBloom account.</p>
+      <p>
+        Select the monthly beauty box that fits you best.
+        Your saved Beauty Profile stays connected to your MiriBloom account.
+      </p>
     </section>
 
     <section class="access-message locked" id="accessMessage">
@@ -43,14 +48,26 @@
         <div class="purchase-art mini-art"><span>MiriBloom</span></div>
         <p class="eyebrow">A little bloom</p>
         <h2>Bloom Mini</h2>
-        <div class="purchase-price">$15</div>
-        <p class="purchase-desc">5 deluxe-size beauty products selected around your Beauty Profile.</p>
+        <div class="purchase-price">$15<span class="monthly-label">/month</span></div>
+
+        <p class="purchase-desc">
+          5 deluxe-size beauty products selected around your Beauty Profile,
+          delivered monthly.
+        </p>
+
         <ul class="purchase-features">
-          <li>5 deluxe products</li>
+          <li>5 deluxe products each month</li>
           <li>Personalized beauty selection</li>
-          <li>Founding launch access</li>
+          <li>Monthly subscription</li>
         </ul>
-        <a id="miniPurchaseBtn" class="purchase-btn disabled" href="https://buy.stripe.com/28E14ncW6duY5V9bv5aZi02" aria-disabled="true">Bloom Mini — $15</a>
+
+        <button
+          id="miniPurchaseBtn"
+          class="purchase-btn disabled"
+          type="button"
+          aria-disabled="true">
+          Subscribe — $15/month
+        </button>
       </article>
 
       <article class="purchase-card featured">
@@ -58,23 +75,38 @@
         <div class="purchase-art full-art"><span>MiriBloom</span></div>
         <p class="eyebrow">The full bloom</p>
         <h2>Bloom Box</h2>
-        <div class="purchase-price">$29</div>
-        <p class="purchase-desc">Full-size beauty products selected around your Beauty Profile.</p>
+        <div class="purchase-price">$29<span class="monthly-label">/month</span></div>
+
+        <p class="purchase-desc">
+          Full-size beauty products selected around your Beauty Profile,
+          delivered monthly.
+        </p>
+
         <ul class="purchase-features">
-          <li>Full-size beauty products</li>
+          <li>Full-size beauty products each month</li>
           <li>Personalized beauty selection</li>
-          <li>Founding launch access</li>
+          <li>Monthly subscription</li>
         </ul>
-        <a id="boxPurchaseBtn" class="purchase-btn disabled" href="https://buy.stripe.com/00w5kDcW62Qk1ET6aLaZi01" aria-disabled="true">Bloom Box — $29</a>
+
+        <button
+          id="boxPurchaseBtn"
+          class="purchase-btn disabled"
+          type="button"
+          aria-disabled="true">
+          Subscribe — $29/month
+        </button>
       </article>
     </section>
 
     <section class="purchase-note">
-      <strong>Payments stay locked until launch access is approved.</strong>
-      <p>If you joined the Bloom List, MiriBloom will let you know when your account receives access.</p>
+      <strong>Subscriptions stay locked until launch access is approved.</strong>
+      <p>
+        If you joined the Bloom List, MiriBloom will let you know when your
+        account receives access.
+      </p>
     </section>
   </main>
 
-  <script type="module" src="purchase.js?v=20260902-live-restored"></script>
+  <script type="module" src="purchase.js?v=20260902-subscriptions-1"></script>
 </body>
 </html>
