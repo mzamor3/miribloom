@@ -1,0 +1,96 @@
+
+.admin-active-link{
+  background:#edf3e8 !important;
+}
+
+.subscription-toolbar{
+  display:flex;
+  gap:14px;
+  align-items:flex-end;
+  margin-bottom:14px;
+  flex-wrap:wrap;
+}
+
+.subscription-toolbar label{
+  display:block;
+  font-size:11px;
+  font-weight:800;
+  color:#5e6e62;
+  margin-bottom:5px;
+}
+
+.subscription-toolbar input,
+.subscription-toolbar select,
+.subscription-toolbar button{
+  padding:10px 13px;
+  border:1px solid #cdd8c9;
+  border-radius:9px;
+  background:#fff;
+  color:#315238;
+}
+
+.subscription-search-wrap{
+  flex:1 1 320px;
+  max-width:520px;
+}
+
+.subscription-search-wrap input{
+  width:100%;
+}
+
+.subscriptions-table{
+  min-width:980px;
+}
+
+.subscription-status-pill{
+  display:inline-block;
+  padding:6px 9px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  background:#eef1ec;
+  color:#536158;
+}
+
+.status-active,
+.status-trialing{
+  background:#e8f3e5;
+  color:#3d7040;
+}
+
+.status-past_due,
+.status-unpaid{
+  background:#fff0e7;
+  color:#9a5738;
+}
+
+.status-canceled,
+.status-incomplete_expired{
+  background:#f1eeee;
+  color:#776969;
+}
+
+.canceling-badge{
+  display:inline-block;
+  padding:6px 9px;
+  border-radius:999px;
+  background:#fff0e7;
+  color:#9a5738;
+  font-size:11px;
+  font-weight:800;
+}
+
+.not-canceling{
+  color:#708078;
+  font-size:12px;
+}
+
+.subscription-id{
+  display:block;
+  max-width:220px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:11px;
+  color:#657168;
+}

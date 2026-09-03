@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MiriBloom Admin | Subscriptions</title>
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="admin-subscriptions.css">
+</head>
+<body class="admin-page">
+
+  <header class="admin-header">
+    <a class="admin-brand" href="index.html">
+      <span>MiriBloom</span>
+      <small>Admin Dashboard</small>
+    </a>
+
+    <div class="admin-header-actions">
+      <a href="admin.html">Orders</a>
+      <a class="admin-active-link" href="admin-subscriptions.html">Subscriptions</a>
+      <a href="index.html">View Website</a>
+      <button id="adminLogoutBtn" type="button">Log Out</button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <section class="admin-hero">
+      <p class="eyebrow">Private Admin</p>
+      <h1>Subscriptions</h1>
+      <p>See active Bloom members, upcoming renewals, and cancellations.</p>
+    </section>
+
+    <section class="admin-stats">
+      <div class="stat-card">
+        <span>Total Subscribers</span>
+        <strong id="statTotal">0</strong>
+      </div>
+      <div class="stat-card">
+        <span>Active</span>
+        <strong id="statActive">0</strong>
+      </div>
+      <div class="stat-card">
+        <span>Bloom Mini</span>
+        <strong id="statMini">0</strong>
+      </div>
+      <div class="stat-card">
+        <span>Bloom Box</span>
+        <strong id="statBox">0</strong>
+      </div>
+    </section>
+
+    <section class="subscription-toolbar">
+      <div class="subscription-search-wrap">
+        <label for="subscriptionSearch">Search</label>
+        <input
+          id="subscriptionSearch"
+          type="search"
+          placeholder="Name, email, plan..."
+          autocomplete="off">
+      </div>
+
+      <div>
+        <label for="subscriptionStatusFilter">Status</label>
+        <select id="subscriptionStatusFilter">
+          <option value="all">All statuses</option>
+          <option value="active">Active</option>
+          <option value="trialing">Trial</option>
+          <option value="past_due">Payment due</option>
+          <option value="unpaid">Unpaid</option>
+          <option value="canceled">Canceled</option>
+        </select>
+      </div>
+
+      <button id="refreshSubscriptionsBtn" type="button">Refresh</button>
+    </section>
+
+    <section class="orders-wrap">
+      <div id="subscriptionMessage" class="admin-message">
+        Loading subscriptions...
+      </div>
+
+      <div class="orders-table-wrap">
+        <table class="orders-table subscriptions-table">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Plan</th>
+              <th>Status</th>
+              <th>Next Billing</th>
+              <th>Canceling?</th>
+              <th>Subscription ID</th>
+            </tr>
+          </thead>
+          <tbody id="subscriptionsBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="admin-subscriptions.js?v=20260903-1"></script>
+</body>
+</html>
