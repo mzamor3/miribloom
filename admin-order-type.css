@@ -1,0 +1,30 @@
+
+/* ===== MiriBloom Order Type Labels ===== */
+.order-type-badge{
+  display:inline-block;
+  padding:6px 9px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:900;
+  line-height:1.2;
+  white-space:nowrap;
+}
+
+.order-type-subscription{
+  background:#e7f1e3;
+  color:#3f6c42;
+}
+
+.order-type-renewal{
+  background:#eef0f8;
+  color:#4f5f87;
+}
+
+.order-type-one-time{
+  background:#f3eee8;
+  color:#746357;
+}
+
+.admin-active-link{
+  background:#edf3e8 !important;
+}
