@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="admin.css">
   <link rel="stylesheet" href="admin-tracking.css">
   <link rel="stylesheet" href="admin-search.css">
+  <link rel="stylesheet" href="admin-detail.css">
 </head>
 <body class="admin-page">
   <header class="admin-header">
@@ -71,6 +72,7 @@
               <th>Order Date</th>
               <th>Fulfillment</th>
               <th>Tracking</th>
+              <th>Order Details</th>
               <th>Beauty Profile</th>
             </tr>
           </thead>
@@ -81,6 +83,26 @@
   </main>
 
   
+  
+  <div class="profile-modal hidden" id="orderDetailModal">
+    <div class="profile-modal-card order-detail-modal-card">
+      <button class="profile-modal-close" id="orderDetailClose" type="button">×</button>
+      <p class="eyebrow">Order details</p>
+      <h2 id="orderDetailTitle">MiriBloom Order</h2>
+
+      <div class="order-detail-grid" id="orderDetailGrid"></div>
+
+      <div class="order-detail-actions">
+        <button class="profile-btn" id="orderDetailProfileBtn" type="button">
+          View Beauty Profile
+        </button>
+        <button class="ghost-btn" id="orderDetailDoneBtn" type="button">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="profile-modal hidden" id="trackingModal">
     <div class="profile-modal-card tracking-modal-card">
       <button class="profile-modal-close" id="trackingModalClose" type="button">×</button>
@@ -124,6 +146,6 @@
     </div>
   </div>
 
-  <script type="module" src="admin-tracking-v7.js?v=20260902-search-1"></script>
+  <script type="module" src="admin-tracking-v8.js?v=20260902-detail-1"></script>
 </body>
 </html>
