@@ -1,0 +1,35 @@
+
+/* ===== Renewal Ready ===== */
+.renewal-badge{
+  display:inline-block;
+  padding:6px 9px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.renewal-normal{
+  background:#eef3ed;
+  color:#5b6d5e;
+}
+
+.renewal-due-soon{
+  background:#fff3d8;
+  color:#8a6720;
+}
+
+.renewal-overdue{
+  background:#ffe8e5;
+  color:#a64a42;
+}
+
+.renewal-canceling{
+  background:#fff0e7;
+  color:#9a5738;
+}
+
+.renewal-muted{
+  background:#f0f0ee;
+  color:#7a7f79;
+}

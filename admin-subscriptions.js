@@ -40,6 +40,88 @@ function statusLabel(status) {
   return labels[status] || status || '—';
 }
 
+function daysUntil(value) {
+  if (!value) return null;
+
+  const today = new Date();
+  const target = new Date(value);
+
+  if (Number.isNaN(target.getTime())) return null;
+
+  const todayMidnight = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate()
+  );
+
+  const targetMidnight = new Date(
+    target.getFullYear(),
+    target.getMonth(),
+    target.getDate()
+  );
+
+  const diffMs = targetMidnight - todayMidnight;
+  return Math.ceil(diffMs / 86400000);
+}
+
+function renewalInfo(row) {
+  if (row.status === 'canceled') {
+    return {
+      label: 'Canceled',
+      className: 'renewal-muted'
+    };
+  }
+
+  if (row.status === 'past_due' || row.status === 'unpaid') {
+    return {
+      label: 'Payment due',
+      className: 'renewal-overdue'
+    };
+  }
+
+  if (row.cancel_at_period_end) {
+    return {
+      label: 'Canceling',
+      className: 'renewal-canceling'
+    };
+  }
+
+  const days = daysUntil(row.current_period_end);
+
+  if (days === null) {
+    return {
+      label: 'No date',
+      className: 'renewal-muted'
+    };
+  }
+
+  if (days < 0) {
+    return {
+      label: `${Math.abs(days)} day${Math.abs(days) === 1 ? '' : 's'} overdue`,
+      className: 'renewal-overdue'
+    };
+  }
+
+  if (days === 0) {
+    return {
+      label: 'Renews today',
+      className: 'renewal-due-soon'
+    };
+  }
+
+  if (days <= 7) {
+    return {
+      label: `${days} day${days === 1 ? '' : 's'} · Due Soon`,
+      className: 'renewal-due-soon'
+    };
+  }
+
+  return {
+    label: `${days} days`,
+    className: 'renewal-normal'
+  };
+}
+
 async function requireAdmin() {
   const { data: sessionData } = await supabase.auth.getSession();
   const user = sessionData?.session?.user;
@@ -97,13 +179,16 @@ function renderSubscriptions() {
 
   if (query) {
     rows = rows.filter(row => {
+      const renewal = renewalInfo(row);
+
       const searchable = [
         row.customer_name,
         row.customer_email,
         row.box_type,
         row.status,
         row.stripe_subscription_id,
-        row.stripe_customer_id
+        row.stripe_customer_id,
+        renewal.label
       ]
         .filter(Boolean)
         .join(' ')
@@ -127,6 +212,7 @@ function renderSubscriptions() {
 
   rows.forEach(row => {
     const tr = document.createElement('tr');
+    const renewal = renewalInfo(row);
 
     tr.innerHTML = `
       <td>
@@ -147,6 +233,12 @@ function renderSubscriptions() {
       </td>
 
       <td>${escapeHtml(formatDate(row.current_period_end))}</td>
+
+      <td>
+        <span class="renewal-badge ${renewal.className}">
+          ${escapeHtml(renewal.label)}
+        </span>
+      </td>
 
       <td>
         ${row.cancel_at_period_end
@@ -188,6 +280,7 @@ async function loadSubscriptions() {
 
 searchInput?.addEventListener('input', renderSubscriptions);
 statusFilter?.addEventListener('change', renderSubscriptions);
+
 document
   .getElementById('refreshSubscriptionsBtn')
   ?.addEventListener('click', loadSubscriptions);
