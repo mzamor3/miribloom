@@ -164,10 +164,12 @@ async function loadAccount() {
 
   if (!beauty) {
     showMessage('No Beauty Profile is saved yet. Take the Beauty Quiz first.');
+    await loadSubscription();
     return;
   }
 
   setProfile(beauty);
+  await loadSubscription();
 }
 
 document.getElementById('memberTrigger')?.addEventListener('click', (e) => {
@@ -360,5 +362,129 @@ confirmDeleteBtn?.addEventListener('click', async () => {
   }
 });
 
+
+
+/* My Subscription */
+function formatSubscriptionDate(value) {
+  if (!value) return '—';
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) return '—';
+
+  return date.toLocaleDateString(undefined, {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+  });
+}
+
+function subscriptionPrice(boxType) {
+  if (boxType === 'Bloom Mini') return '$15/month';
+  if (boxType === 'Bloom Box') return '$29/month';
+  return 'Monthly';
+}
+
+function subscriptionStatusLabel(status) {
+  const labels = {
+    active: 'Active',
+    trialing: 'Trial',
+    past_due: 'Payment due',
+    unpaid: 'Unpaid',
+    paused: 'Paused',
+    canceled: 'Canceled',
+    incomplete: 'Incomplete',
+    incomplete_expired: 'Expired'
+  };
+
+  return labels[status] || status || '—';
+}
+
+async function loadSubscription() {
+  if (!currentUser) return;
+
+  const message = document.getElementById('subscriptionMessage');
+  const card = document.getElementById('subscriptionCard');
+  const empty = document.getElementById('subscriptionEmpty');
+
+  if (!message || !card || !empty) return;
+
+  message.classList.remove('hidden');
+  message.textContent = 'Checking your subscription...';
+  card.classList.add('hidden');
+  empty.classList.add('hidden');
+
+  const { data, error } = await supabase
+    .from('subscriptions')
+    .select('box_type, status, current_period_end, cancel_at_period_end, canceled_at, created_at')
+    .eq('user_id', currentUser.id)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error) {
+    console.error('Subscription load error:', error);
+    message.textContent = 'Could not load your subscription right now.';
+    return;
+  }
+
+  message.classList.add('hidden');
+
+  if (!data) {
+    empty.classList.remove('hidden');
+    return;
+  }
+
+  const plan = document.getElementById('subscriptionPlan');
+  const status = document.getElementById('subscriptionStatus');
+  const price = document.getElementById('subscriptionPrice');
+  const nextBilling = document.getElementById('subscriptionNextBilling');
+  const dateLabel = document.getElementById('subscriptionDateLabel');
+  const note = document.getElementById('subscriptionNote');
+
+  if (plan) plan.textContent = data.box_type || 'MiriBloom';
+  if (price) price.textContent = subscriptionPrice(data.box_type);
+
+  if (status) {
+    status.textContent = subscriptionStatusLabel(data.status);
+    status.dataset.status = data.status || '';
+  }
+
+  if (nextBilling) {
+    nextBilling.textContent = formatSubscriptionDate(data.current_period_end);
+  }
+
+  if (data.status === 'canceled') {
+    if (dateLabel) dateLabel.textContent = 'Subscription ended';
+    if (nextBilling) {
+      nextBilling.textContent =
+        formatSubscriptionDate(data.canceled_at || data.current_period_end);
+    }
+    if (note) {
+      note.textContent =
+        'This subscription has been canceled and will not renew.';
+    }
+  } else if (data.cancel_at_period_end) {
+    if (dateLabel) dateLabel.textContent = 'Access through';
+    if (note) {
+      note.textContent =
+        'Your subscription is set to cancel at the end of the current billing period.';
+    }
+  } else if (data.status === 'active' || data.status === 'trialing') {
+    if (dateLabel) dateLabel.textContent = 'Next billing date';
+    if (note) {
+      note.textContent =
+        'Your Bloom renews automatically each month.';
+    }
+  } else {
+    if (dateLabel) dateLabel.textContent = 'Billing period';
+    if (note) {
+      note.textContent =
+        'Your subscription needs attention. Subscription management will be available here next.';
+    }
+  }
+
+  card.classList.remove('hidden');
+}
 
 loadAccount();

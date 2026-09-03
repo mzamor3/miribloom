@@ -32,6 +32,7 @@
       <div class="member-dropdown approved-member-dropdown" id="memberDropdown">
         <a href="account.html">My Account</a>
         <a href="orders.html">Orders</a>
+        <a href="#subscription">My Subscription</a>
         <a href="#profile">Beauty Profile</a>
         <a href="index.html#waitlist">Bloom List</a>
         <button type="button" id="openAccountSettings">Account Settings</button>
@@ -172,6 +173,61 @@
       </aside>
     </section>
 
+
+    <section class="account-subscription-section" id="subscription">
+      <div class="account-subscription-head">
+        <div>
+          <p class="eyebrow coral">Your monthly Bloom</p>
+          <h2>My Subscription</h2>
+          <p>View your current MiriBloom plan and next billing date.</p>
+        </div>
+      </div>
+
+      <div class="subscription-loading" id="subscriptionMessage">
+        Checking your subscription...
+      </div>
+
+      <div class="subscription-card hidden" id="subscriptionCard">
+        <div class="subscription-card-top">
+          <div>
+            <span class="subscription-label">Current plan</span>
+            <h3 id="subscriptionPlan">—</h3>
+          </div>
+          <span class="subscription-status" id="subscriptionStatus">—</span>
+        </div>
+
+        <div class="subscription-details-grid">
+          <div class="subscription-detail">
+            <span>Price</span>
+            <strong id="subscriptionPrice">—</strong>
+          </div>
+
+          <div class="subscription-detail">
+            <span>Billing</span>
+            <strong>Monthly</strong>
+          </div>
+
+          <div class="subscription-detail">
+            <span id="subscriptionDateLabel">Next billing date</span>
+            <strong id="subscriptionNextBilling">—</strong>
+          </div>
+        </div>
+
+        <div class="subscription-note" id="subscriptionNote">
+          Your Bloom renews automatically each month.
+        </div>
+
+        <a class="subscription-orders-btn" href="orders.html">View My Orders</a>
+      </div>
+
+      <div class="subscription-empty hidden" id="subscriptionEmpty">
+        <div class="subscription-empty-heart">♡</div>
+        <h3>No active Bloom subscription yet</h3>
+        <p>Choose Bloom Mini or Bloom Box when your purchase access is open.</p>
+        <a class="primary-btn" href="purchase.html">Choose Your Bloom</a>
+      </div>
+    </section>
+
     <section class="account-support-strip">
       <div class="support-icon">✉</div>
       <div class="support-copy">
@@ -215,6 +271,6 @@
     </div>
   </div>
 
-  <script type="module" src="account.js?v=20260902-clean-dropdown"></script>
+  <script type="module" src="account.js?v=20260903-subscription-1"></script>
 </body>
 </html>
