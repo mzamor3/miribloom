@@ -1,0 +1,30 @@
+
+/* ===== Admin Order Search ===== */
+.admin-toolbar{
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.admin-search-wrap{
+  flex:1 1 320px;
+  max-width:520px;
+}
+
+.admin-search-wrap input{
+  width:100%;
+  padding:11px 13px;
+  border:1px solid #cdd8c9;
+  border-radius:9px;
+  background:#fff;
+  color:#315238;
+  outline:none;
+}
+
+.admin-search-wrap input:focus{
+  border-color:#7f9a78;
+  box-shadow:0 0 0 3px rgba(111,146,104,.12);
+}
+
+.admin-search-wrap input::placeholder{
+  color:#98a199;
+}

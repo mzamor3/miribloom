@@ -6,6 +6,7 @@
   <title>MiriBloom Admin | Orders</title>
   <link rel="stylesheet" href="admin.css">
   <link rel="stylesheet" href="admin-tracking.css">
+  <link rel="stylesheet" href="admin-search.css">
 </head>
 <body class="admin-page">
   <header class="admin-header">
@@ -34,6 +35,15 @@
     </section>
 
     <section class="admin-toolbar">
+      <div class="admin-search-wrap">
+        <label for="orderSearch">Search orders</label>
+        <input
+          id="orderSearch"
+          type="search"
+          placeholder="Name, email, tracking, box..."
+          autocomplete="off"
+        >
+      </div>
       <div>
         <label for="statusFilter">Filter</label>
         <select id="statusFilter">
@@ -114,6 +124,6 @@
     </div>
   </div>
 
-<script type="module" src="admin-tracking-v6.js?v=20260902-1"></script>
+  <script type="module" src="admin-tracking-v7.js?v=20260902-search-1"></script>
 </body>
 </html>
