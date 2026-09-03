@@ -1622,6 +1622,7 @@ a{text-decoration:none;color:inherit} button,input{font:inherit} button{cursor:p
   }
 }
 
+
 /* ===== MiriBloom My Subscription ===== */
 .account-subscription-section{
   max-width:1180px;
@@ -1792,5 +1793,55 @@ a{text-decoration:none;color:inherit} button,input{font:inherit} button{cursor:p
 
   .subscription-details-grid{
     grid-template-columns:1fr;
+  }
+}
+
+
+/* ===== Manage Subscription ===== */
+.subscription-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.subscription-manage-btn{
+  display:inline-block;
+  padding:11px 17px;
+  border:0;
+  border-radius:9px;
+  background:#4f764e;
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.subscription-manage-btn:hover{
+  filter:brightness(.97);
+}
+
+.subscription-manage-btn:disabled{
+  opacity:.65;
+  cursor:wait;
+}
+
+.subscription-manage-message{
+  margin-top:12px;
+  padding:11px 13px;
+  border-radius:10px;
+  background:#fff1eb;
+  color:#8a4c3e;
+  font-size:13px;
+  font-weight:700;
+}
+
+@media(max-width:600px){
+  .subscription-actions{
+    flex-direction:column;
+  }
+
+  .subscription-manage-btn,
+  .subscription-orders-btn{
+    width:100%;
+    text-align:center;
   }
 }
