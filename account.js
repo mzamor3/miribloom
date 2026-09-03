@@ -487,4 +487,102 @@ async function loadSubscription() {
   card.classList.remove('hidden');
 }
 
+
+/* Stripe Customer Portal */
+async function openCustomerPortal() {
+  const button = document.getElementById('manageSubscriptionBtn');
+  const message = document.getElementById('subscriptionManageMessage');
+
+  if (!currentUser) {
+    if (message) {
+      message.classList.remove('hidden');
+      message.textContent = 'Please log in again.';
+    }
+    return;
+  }
+
+  const originalText = button?.textContent || 'Manage Subscription';
+
+  if (button) {
+    button.disabled = true;
+    button.textContent = 'Opening Stripe...';
+  }
+
+  if (message) {
+    message.classList.add('hidden');
+    message.textContent = '';
+  }
+
+  try {
+    const { data: sessionData, error: sessionError } =
+      await supabase.auth.getSession();
+
+    if (sessionError) {
+      throw new Error('Could not read your MiriBloom session.');
+    }
+
+    const accessToken =
+      sessionData?.session?.access_token;
+
+    if (!accessToken) {
+      throw new Error('Please log in again.');
+    }
+
+    const response = await fetch(
+      'https://kpyhtvymgfsrrhijyyjs.supabase.co/functions/v1/create-customer-portal',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          access_token: accessToken
+        })
+      }
+    );
+
+    const text = await response.text();
+    let result = {};
+
+    try {
+      result = text ? JSON.parse(text) : {};
+    } catch {
+      result = { message: text };
+    }
+
+    if (!response.ok) {
+      throw new Error(
+        result?.error ||
+        result?.message ||
+        `Could not open subscription management (${response.status})`
+      );
+    }
+
+    if (!result?.url) {
+      throw new Error('Stripe did not return a portal URL.');
+    }
+
+    window.location.href = result.url;
+
+  } catch (error) {
+    console.error('Customer portal error:', error);
+
+    if (message) {
+      message.classList.remove('hidden');
+      message.textContent =
+        error?.message ||
+        'Could not open subscription management.';
+    }
+
+    if (button) {
+      button.disabled = false;
+      button.textContent = originalText;
+    }
+  }
+}
+
+document
+  .getElementById('manageSubscriptionBtn')
+  ?.addEventListener('click', openCustomerPortal);
+
 loadAccount();

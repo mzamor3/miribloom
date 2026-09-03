@@ -217,7 +217,13 @@
           Your Bloom renews automatically each month.
         </div>
 
-        <a class="subscription-orders-btn" href="orders.html">View My Orders</a>
+        <div class="subscription-actions">
+          <button class="subscription-manage-btn" id="manageSubscriptionBtn" type="button">
+            Manage Subscription
+          </button>
+          <a class="subscription-orders-btn" href="orders.html">View My Orders</a>
+        </div>
+        <div class="subscription-manage-message hidden" id="subscriptionManageMessage"></div>
       </div>
 
       <div class="subscription-empty hidden" id="subscriptionEmpty">
@@ -271,6 +277,6 @@
     </div>
   </div>
 
-  <script type="module" src="account.js?v=20260903-subscription-1"></script>
+  <script type="module" src="account.js?v=20260903-manage-subscription-1"></script>
 </body>
 </html>
