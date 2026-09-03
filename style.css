@@ -1621,3 +1621,176 @@ a{text-decoration:none;color:inherit} button,input{font:inherit} button{cursor:p
     margin:auto;
   }
 }
+
+/* ===== MiriBloom My Subscription ===== */
+.account-subscription-section{
+  max-width:1180px;
+  margin:34px auto;
+  padding:32px;
+  border:1px solid #e4e8df;
+  border-radius:22px;
+  background:#fff;
+  box-shadow:0 14px 35px rgba(55,75,58,.06);
+}
+
+.account-subscription-head{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:flex-start;
+  margin-bottom:22px;
+}
+
+.account-subscription-head h2{
+  margin:4px 0 7px;
+  font-family:Georgia,serif;
+  color:#294b34;
+  font-size:30px;
+}
+
+.account-subscription-head p:last-child{
+  margin:0;
+  color:#747d75;
+}
+
+.subscription-loading{
+  padding:20px;
+  border-radius:14px;
+  background:#f5f8f1;
+  color:#657067;
+}
+
+.subscription-card{
+  padding:26px;
+  border:1px solid #dce5d7;
+  border-radius:18px;
+  background:#f8fbf5;
+}
+
+.subscription-card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding-bottom:20px;
+  border-bottom:1px solid #e0e7dc;
+}
+
+.subscription-label,
+.subscription-detail span{
+  display:block;
+  margin-bottom:6px;
+  color:#7b847c;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+.subscription-card h3{
+  margin:0;
+  font-family:Georgia,serif;
+  color:#315238;
+  font-size:28px;
+}
+
+.subscription-status{
+  padding:8px 13px;
+  border-radius:999px;
+  background:#e4efe0;
+  color:#416443;
+  font-size:12px;
+  font-weight:800;
+}
+
+.subscription-status[data-status="past_due"],
+.subscription-status[data-status="unpaid"]{
+  background:#fff0e7;
+  color:#9a5738;
+}
+
+.subscription-status[data-status="canceled"],
+.subscription-status[data-status="incomplete_expired"]{
+  background:#f1eeee;
+  color:#776969;
+}
+
+.subscription-details-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin:20px 0;
+}
+
+.subscription-detail{
+  padding:16px;
+  border:1px solid #e2e7df;
+  border-radius:13px;
+  background:#fff;
+}
+
+.subscription-detail strong{
+  color:#315238;
+  font-size:15px;
+}
+
+.subscription-note{
+  margin-bottom:18px;
+  color:#687168;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.subscription-orders-btn{
+  display:inline-block;
+  padding:11px 17px;
+  border:1px solid #4f764e;
+  border-radius:9px;
+  color:#4f764e;
+  font-weight:800;
+  text-decoration:none;
+}
+
+.subscription-empty{
+  padding:34px 22px;
+  text-align:center;
+  border:1px dashed #d8dfd4;
+  border-radius:18px;
+  background:#fbfcf9;
+}
+
+.subscription-empty-heart{
+  color:#e07c78;
+  font-size:34px;
+}
+
+.subscription-empty h3{
+  margin:8px 0;
+  font-family:Georgia,serif;
+  color:#315238;
+}
+
+.subscription-empty p{
+  margin:0 0 20px;
+  color:#747d75;
+}
+
+.hidden{
+  display:none !important;
+}
+
+@media(max-width:760px){
+  .account-subscription-section{
+    margin:24px 16px;
+    padding:22px;
+  }
+
+  .subscription-card-top{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .subscription-details-grid{
+    grid-template-columns:1fr;
+  }
+}
