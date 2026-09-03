@@ -11,6 +11,10 @@ function escapeHtml(value) {
     .replaceAll("'", '&#039;');
 }
 
+function escapeAttr(value) {
+  return escapeHtml(value);
+}
+
 function orderStatusLabel(status) {
   const labels = {
     new: 'Order received',
@@ -33,6 +37,17 @@ function formatOrderDate(value) {
     month: 'long',
     day: 'numeric',
     year: 'numeric'
+  });
+}
+
+function formatStatusDate(value) {
+  if (!value) return '';
+  return new Date(value).toLocaleString(undefined, {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit'
   });
 }
 
@@ -68,6 +83,66 @@ async function loadMember() {
   return true;
 }
 
+function renderTracking(order) {
+  const hasTracking =
+    order.tracking_number ||
+    order.shipping_carrier ||
+    order.tracking_url;
+
+  const hasDates =
+    order.shipped_at ||
+    order.delivered_at;
+
+  if (!hasTracking && !hasDates) {
+    return '';
+  }
+
+  const carrier = order.shipping_carrier
+    ? `<div><span>Carrier</span><strong>${escapeHtml(order.shipping_carrier)}</strong></div>`
+    : '';
+
+  const number = order.tracking_number
+    ? `<div><span>Tracking number</span><strong>${escapeHtml(order.tracking_number)}</strong></div>`
+    : '';
+
+  const shippedDate = order.shipped_at
+    ? `<div><span>Shipped</span><strong>${escapeHtml(formatStatusDate(order.shipped_at))}</strong></div>`
+    : '';
+
+  const deliveredDate = order.delivered_at
+    ? `<div><span>Delivered</span><strong>${escapeHtml(formatStatusDate(order.delivered_at))}</strong></div>`
+    : '';
+
+  const trackButton = order.tracking_url
+    ? `
+      <a class="customer-track-btn"
+         href="${escapeAttr(order.tracking_url)}"
+         target="_blank"
+         rel="noopener noreferrer">
+        Track Package
+      </a>`
+    : '';
+
+  return `
+    <div class="customer-tracking-box">
+      <div class="customer-tracking-head">
+        <div>
+          <span class="tracking-kicker">Shipping details</span>
+          <strong>Package Tracking</strong>
+        </div>
+        ${trackButton}
+      </div>
+
+      <div class="customer-tracking-grid">
+        ${carrier}
+        ${number}
+        ${shippedDate}
+        ${deliveredDate}
+      </div>
+    </div>
+  `;
+}
+
 async function loadMyOrders() {
   const list = document.getElementById('myOrdersList');
   const message = document.getElementById('myOrdersMessage');
@@ -81,7 +156,19 @@ async function loadMyOrders() {
 
   const { data, error } = await supabase
     .from('orders')
-    .select('id, box_type, amount, payment_status, fulfillment_status, created_at')
+    .select(`
+      id,
+      box_type,
+      amount,
+      payment_status,
+      fulfillment_status,
+      created_at,
+      shipping_carrier,
+      tracking_number,
+      tracking_url,
+      shipped_at,
+      delivered_at
+    `)
     .eq('user_id', currentUser.id)
     .order('created_at', { ascending: false });
 
@@ -140,6 +227,8 @@ async function loadMyOrders() {
             <span class="${current >= 3 ? 'active' : ''}">Delivered</span>
           </div>
         </div>
+
+        ${renderTracking(order)}
       </article>`;
   }).join('');
 }

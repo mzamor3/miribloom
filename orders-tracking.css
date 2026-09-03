@@ -1,0 +1,91 @@
+
+/* ===== Customer Orders Tracking Details ===== */
+.customer-tracking-box{
+  margin-top:20px;
+  padding:18px;
+  border:1px solid #dbe4d7;
+  border-radius:15px;
+  background:linear-gradient(145deg,#f8fbf5,#fffaf7);
+}
+
+.customer-tracking-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:14px;
+}
+
+.customer-tracking-head strong{
+  display:block;
+  margin-top:3px;
+  color:#294b34;
+  font-family:Georgia,serif;
+  font-size:20px;
+}
+
+.tracking-kicker{
+  display:block;
+  color:#7a867d;
+  font-size:10px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+}
+
+.customer-track-btn{
+  display:inline-block;
+  padding:10px 14px;
+  border-radius:8px;
+  background:#4f764e;
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+  text-decoration:none;
+  white-space:nowrap;
+}
+
+.customer-tracking-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+
+.customer-tracking-grid > div{
+  padding:12px 13px;
+  border-radius:11px;
+  background:#fff;
+  border:1px solid #e2e7de;
+}
+
+.customer-tracking-grid span{
+  display:block;
+  margin-bottom:5px;
+  color:#818b83;
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+
+.customer-tracking-grid strong{
+  color:#315238;
+  font-size:13px;
+  overflow-wrap:anywhere;
+}
+
+@media(max-width:650px){
+  .customer-tracking-head{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .customer-track-btn{
+    width:100%;
+    text-align:center;
+  }
+
+  .customer-tracking-grid{
+    grid-template-columns:1fr;
+  }
+}
